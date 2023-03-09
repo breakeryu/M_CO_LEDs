@@ -4,7 +4,7 @@
 
 CIA 303-3标准规定了用于指示的LED，它反映了CANopen设备的状态。可以使用绿色和红色led或双色led。
 
--  CANopen 绿色led -运行led:
+- CANopen 绿色led -运行led:
   - 闪烁(flickering):LSS配置状态处于活动状态
   - 闪烁(blinking):设备处于NMT预运行状态
   - 单闪:设备处于NMT停止状态 
