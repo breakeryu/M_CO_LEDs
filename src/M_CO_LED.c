@@ -2,7 +2,7 @@
  * @Author: magyu
  * @Date: 2023-03-08 16:23:18
  * @LastEditors: magyu
- * @LastEditTime: 2023-03-08 22:14:25
+ * @LastEditTime: 2023-03-09 23:45:09
  * @Description: M_CO_LED 使用CANOPEN协议中LED指示器部分代码
  * @Version: 0.1 2023/3/8 初步构建 
  */
@@ -10,7 +10,7 @@
 #include "M_CO_LEDs.h"
 
 
-M_CO_LEDs_t *LEDs;
+
 
 /******************************************************************************/
 M_CO_ReturnError_t M_CO_LEDs_init(M_CO_LEDs_t *LEDs) 

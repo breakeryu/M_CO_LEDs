@@ -2,7 +2,7 @@
  * @Author: magyu
  * @Date: 2023-03-08 17:28:50
  * @LastEditors: magyu
- * @LastEditTime: 2023-03-08 17:48:36
+ * @LastEditTime: 2023-03-09 23:45:04
  * @Description: 请填写简介
  */
 
@@ -12,6 +12,10 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "M_CO_LEDs_System.h"
+#include "debugLEDs.h"
+#include "M_CO_LEDs.h"
+
 
 
 /* NULL is defined in stddef.h */
@@ -21,8 +25,9 @@ typedef uint_fast8_t            bool_t;
 typedef float                   float32_t;
 typedef double                  float64_t;
 
+void debugLEDsInit(void);
 
-
+void aLedsRun (void);
 
 #endif
 
