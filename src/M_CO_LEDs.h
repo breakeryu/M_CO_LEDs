@@ -2,7 +2,7 @@
  * @Author: magyu
  * @Date: 2023-03-08 16:23:10
  * @LastEditors: magyu
- * @LastEditTime: 2023-03-09 23:39:12
+ * @LastEditTime: 2023-03-10 20:30:36
  * @Description: 请填写简介
  */
 
@@ -93,6 +93,8 @@ M_CO_ReturnError_t M_CO_LEDs_init(M_CO_LEDs_t *LEDs);
 
 
 
+
+
 /**
  * @brief 
  * 
@@ -100,34 +102,31 @@ M_CO_ReturnError_t M_CO_LEDs_init(M_CO_LEDs_t *LEDs);
  * Function must be called cyclically.
  * 
  * @param LEDs This object.
- * @param timeDifference_us Time difference from previous function call in
- *                          [microseconds].
+ * @param timeDifference_us Time difference from previous function call in [microseconds].
  * @param SMTstate SMT operating state.
- * @param LSSconfig Node is in LSS configuration state indication.
- * @param ErrCANbusOff CAN bus off indication (highest priority).
- * @param ErrCANbusWarn CAN error warning limit reached indication.
- * @param ErrRpdo RPDO event timer timeout indication.
- * @param ErrSync Sync receive timeout indication.
- * @param ErrHbCons Heartbeat consumer error (remote node) indication.
- * @param ErrOther Other error indication (lowest priority).
- * @param firmwareDownload Firmware download is in progress indication.
- * @param [out] timerNext_us info to OS - see CO_process().
+ * @param SYSconfig System is in configuration state indication.
+ * @param ErrPriority1 System Err indication (highest priority).
+ * @param ErrPriority6 System Err indication (priority 6 ).
+ * @param ErrPriority3 System Err indication (priority 3 ).
+ * @param ErrPriority4 System Err indication (priority 4 ).
+ * @param ErrPriority5 System Err indication (priority 5 ).
+ * @param ErrOther System Err indication (lowest priority).
+ * @param SYSotherState 
  */
+
 void M_CO_LEDs_process(M_CO_LEDs_t *LEDs,
                      uint32_t timeDifference_us,
                      M_CO_SMT_internalState_t SMTstate,
-                     bool_t LSSconfig,
-                     bool_t ErrCANbusOff,
-                     bool_t ErrCANbusWarn,
-                     bool_t ErrRpdo,
-                     bool_t ErrSync,
-                     bool_t ErrHbCons,
+                     bool_t SYSconfig,
+                     bool_t ErrPriority1,
+                     bool_t ErrPriority6,
+                     bool_t ErrPriority3,
+                     bool_t ErrPriority4,
+                     bool_t ErrPriority5,
                      bool_t ErrOther,
-                     bool_t firmwareDownload,
-                     bool_t ErrFirstEm,
-                     uint32_t *timerNext_us);
+                     bool_t SYSotherState
+                     );
 
-//todo 更改这些错误的触发名称，并且给出函数。
                      
 
 #endif // M_CO_LEDS_H
