@@ -53,6 +53,10 @@ struct VSDATAdebugLEDs
 };
 
 
+/*
+ * SEM Library data definition.
+ */
+struct debugLEDsSEMDATA SEMdebugLEDs;
 
 
 /*
@@ -101,11 +105,6 @@ static VSResult debugLEDsSEM_GetOutput (void);
  */
 typedef void (* debugLEDsVS_ACTIONEXPR_TYPE) (void);
 
-
-/*
- * Action Expression Pointer Table Declaration.
- */
-static debugLEDsVS_ACTIONEXPR_TYPE const debugLEDsVSAction[1];
 
 
 /*
@@ -295,4 +294,16 @@ VSResult debugLEDsVSElementExpl (IdentifierType IdentType, SEM_EXPLANATION_TYPE 
     break;
   }
   return ret;
+}
+
+
+VSResult debugLEDsSEM_State (SEM_STATE_MACHINE_TYPE StateMachineNo,
+  SEM_STATE_TYPE *StateNo)
+{
+  if (1U <= StateMachineNo)
+  {
+    return (SES_RANGE_ERR);
+  }
+  *StateNo = SEM.CSV[StateMachineNo];
+  return (SES_FOUND);
 }

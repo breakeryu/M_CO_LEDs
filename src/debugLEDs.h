@@ -232,6 +232,31 @@ VSResult debugLEDsVSElementExpl (IdentifierType IdentType, SEM_EXPLANATION_TYPE 
 
 
 /*
+ * Name        : SEM_State
+ *
+ * Description : The function will return the current state of the specified
+ *               state machine.
+ *               The function must be enabled by its VS Coder option.
+ *
+ * Argument    : StateMachineNo:
+ *                 State machine number.
+ *
+ *               StateNo:
+ *                 Pointer to store the current state of the specified state
+ *                 machine.
+ *
+ * Return      : Completion code:
+ *
+ *                 SES_RANGE_ERR:
+ *                   State machine index is out of range.
+ *
+ *                 SES_FOUND:
+ *                   Success. State number index found.
+ */
+VSResult debugLEDsSEM_State (SEM_STATE_MACHINE_TYPE StateMachineNo, SEM_STATE_TYPE *StateNo);
+
+
+/*
  * Action Function Prototypes.
  */
 void aLedsRun (void);

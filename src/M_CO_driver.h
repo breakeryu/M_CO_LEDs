@@ -2,7 +2,7 @@
  * @Author: magyu
  * @Date: 2023-03-08 17:24:26
  * @LastEditors: magyu
- * @LastEditTime: 2023-03-08 17:46:58
+ * @LastEditTime: 2023-03-12 12:47:18
  * @Description: 请填写简介
  */
 
@@ -12,6 +12,14 @@
 
 #include <string.h>
 
+
+
+/* NULL is defined in stddef.h */
+/* true and false are defined in stdbool.h */
+/* int8_t to uint64_t are defined in stdint.h */
+typedef unsigned char           bool_t;
+typedef float                   float32_t;
+typedef double                  float64_t;
 
 /**
  * Internal System management state

@@ -1,0 +1,1369 @@
+L 1 "..\App\src\debugLEDs.c"
+N/*
+N * Id:        debugLEDs.c
+N *
+N * Function:  Contains all API functions.
+N *
+N * This is an automatically generated file. It will be overwritten by the Coder.
+N *
+N * DO NOT EDIT THE FILE!
+N */
+N
+N
+N#include "debugLEDs.h"
+L 1 "..\App\src\debugLEDs.h" 1
+N#ifndef visualSTATE_DEBUGLEDS_H
+N#define visualSTATE_DEBUGLEDS_H
+N
+N/*
+N * Id:        debugLEDs.h
+N *
+N * Function:  Contains definitions needed for API functions.
+N *
+N * This is an automatically generated file. It will be overwritten by the Coder.
+N *
+N * DO NOT EDIT THE FILE!
+N */
+N
+N
+N#include <stddef.h>
+L 1 "F:\KEIL5\ARM\ARMCC\Bin\..\include\stddef.h" 1
+N/* stddef.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.1.4 */
+N
+N/* Copyright (C) ARM Ltd., 1999
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N/* Copyright (C) Codemist Ltd., 1988                            */
+N/* Copyright 1991 ARM Limited. All rights reserved.             */
+N/* version 0.05 */
+N
+N/*
+N * The following types and macros are defined in several headers referred to in
+N * the descriptions of the functions declared in that header. They are also
+N * defined in this header file.
+N */
+N
+N#ifndef __stddef_h
+N#define __stddef_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifndef __STDDEF_DECLS
+N  #define __STDDEF_DECLS
+N    #undef __CLIBNS
+N    #ifdef __cplusplus
+S        namespace std {
+S        #define __CLIBNS ::std::
+S        extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S  typedef signed long ptrdiff_t;
+N#else
+N  typedef signed int ptrdiff_t;
+N#endif
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+S   /* the unsigned integral type of the result of the sizeof operator. */
+N#endif
+N
+N#ifndef __cplusplus  /* wchar_t is a builtin type for C++ */
+N  #if !defined(__STRICT_ANSI__)
+X  #if !0L
+N  /* unconditional in non-strict C for consistency of debug info */
+N    #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X    #if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S      typedef unsigned int wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+N    #else
+N      typedef unsigned short wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+N    #endif
+N  #elif !defined(__wchar_t)
+S    #define __wchar_t 1
+S    #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+S      typedef unsigned int wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+S    #else
+S      typedef unsigned short wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+S    #endif
+S   /*
+S    * An integral type whose range of values can represent distinct codes for
+S    * all members of the largest extended character set specified among the
+S    * supported locales; the null character shall have the code value zero and
+S    * each member of the basic character set shall have a code value when used
+S    * as the lone character in an integer character constant.
+S    */
+N  #endif
+N#endif
+N
+N#undef NULL  /* others (e.g. <stdio.h>) also define */
+N#define NULL 0
+N   /* null pointer constant. */
+N
+N#ifdef __clang__
+S  #define offsetof(t, d) __builtin_offsetof(t, d)
+N#else
+N  /* EDG uses __INTADDR__ to avoid errors when strict */
+N  #define offsetof(t, memb) ((__CLIBNS size_t)__INTADDR__(&(((t *)0)->memb)))
+N#endif
+N
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 201112L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+X#if !0L || (1L && 201112L <= 199901L) || (0L && 201103L <= __cplusplus)
+N  typedef long double max_align_t;
+N#endif
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDDEF_DECLS */
+N
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDDEF_NO_EXPORTS
+S      using ::std::size_t;
+S      using ::std::ptrdiff_t;
+S      #if !defined(__STRICT_ANSI__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+S        using ::std::max_align_t;
+S      #endif
+S    #endif 
+N  #endif /* __cplusplus */
+N
+N#endif
+N
+N/* end of stddef.h */
+N
+L 16 "..\App\src\debugLEDs.h" 2
+N
+N
+N#include "M_CO_LEDs_System.h"
+L 1 "..\App\src\M_CO_LEDs_System.h" 1
+N#ifndef visualSTATE_M_CO_LEDS_SYSTEM_H
+N#define visualSTATE_M_CO_LEDS_SYSTEM_H
+N
+N/*
+N * Id:        M_CO_LEDs_System.h
+N *
+N * Function:  Project parts shared between the IAR Visual State systems
+N *
+N * This is an automatically generated file. It will be overwritten by the Coder.
+N *
+N * DO NOT EDIT THE FILE!
+N */
+N
+N
+N#include <limits.h>
+L 1 "F:\KEIL5\ARM\ARMCC\Bin\..\include\limits.h" 1
+N/* limits.h: ANSI 'C' (X3J11 Oct 88) library header, section 2.2.4.2 */
+N/* Copyright (C) Codemist Ltd., 1988                            */
+N/* Copyright 1991-1997 ARM Limited. All rights reserved         */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __limits_h
+N#define __limits_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N#define CHAR_BIT 8
+N    /* max number of bits for smallest object that is not a bit-field (byte) */
+N#define SCHAR_MIN (-128)
+N    /* mimimum value for an object of type signed char */
+N#define SCHAR_MAX 127
+N    /* maximum value for an object of type signed char */
+N#define UCHAR_MAX 255
+N    /* maximum value for an object of type unsigned char */
+N#ifdef __FEATURE_SIGNED_CHAR
+S  #define CHAR_MIN (-128)
+S      /* minimum value for an object of type char */
+S  #define CHAR_MAX 127
+S      /* maximum value for an object of type char */
+N#else
+N  #define CHAR_MIN 0
+N      /* minimum value for an object of type char */
+N  #define CHAR_MAX 255
+N      /* maximum value for an object of type char */
+N#endif
+N
+N#if _AEABI_PORTABILITY_LEVEL != 0 && !defined _AEABI_PORTABLE
+X#if _AEABI_PORTABILITY_LEVEL != 0 && !0L
+S  #define _AEABI_PORTABLE
+N#endif
+N
+N#if _AEABI_PORTABILITY_LEVEL != 0 || (!defined _AEABI_PORTABILITY_LEVEL && __DEFAULT_AEABI_PORTABILITY_LEVEL != 0)
+X#if _AEABI_PORTABILITY_LEVEL != 0 || (!0L && __DEFAULT_AEABI_PORTABILITY_LEVEL != 0)
+Sextern const int __aeabi_MB_LEN_MAX;
+S#define MB_LEN_MAX (__aeabi_MB_LEN_MAX)
+N#else
+N#define MB_LEN_MAX 6
+N#endif
+N    /* maximum number of bytes in a multibyte character, */
+N    /* for any supported locale */
+N
+N#define SHRT_MIN  (-0x8000)
+N    /* minimum value for an object of type short int */
+N#define SHRT_MAX  0x7fff
+N    /* maximum value for an object of type short int */
+N#define USHRT_MAX 65535
+N    /* maximum value for an object of type unsigned short int */
+N#define INT_MIN   (~0x7fffffff)  /* -2147483648 and 0x80000000 are unsigned */
+N    /* minimum value for an object of type int */
+N#define INT_MAX   0x7fffffff
+N    /* maximum value for an object of type int */
+N#define UINT_MAX  0xffffffffU
+N    /* maximum value for an object of type unsigned int */
+N#if __sizeof_long == 8
+X#if 4 == 8
+S  #define LONG_MIN  (~0x7fffffffffffffffL)
+N#else
+N  #define LONG_MIN  (~0x7fffffffL)
+N#endif
+N    /* minimum value for an object of type long int */
+N#if __sizeof_long == 8
+X#if 4 == 8
+S  #define LONG_MAX  0x7fffffffffffffffL
+N#else
+N  #define LONG_MAX  0x7fffffffL
+N#endif
+N    /* maximum value for an object of type long int */
+N#if __sizeof_long == 8
+X#if 4 == 8
+S  #define ULONG_MAX 0xffffffffffffffffUL
+N#else
+N  #define ULONG_MAX 0xffffffffUL
+N#endif
+N    /* maximum value for an object of type unsigned long int */
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 199901L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+X#if !0L || (1L && 199901L <= 199901L) || (0L && 201103L <= __cplusplus)
+N  #define LLONG_MIN  (~0x7fffffffffffffffLL)
+N      /* minimum value for an object of type long long int */
+N  #define LLONG_MAX    0x7fffffffffffffffLL
+N      /* maximum value for an object of type long long int */
+N  #define ULLONG_MAX   0xffffffffffffffffULL
+N      /* maximum value for an object of type unsigned long int */
+N#endif
+N
+N#endif
+N
+N/* end of limits.h */
+N
+L 16 "..\App\src\M_CO_LEDs_System.h" 2
+N
+N
+N#include <stdbool.h>
+L 1 "F:\KEIL5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 19 "..\App\src\M_CO_LEDs_System.h" 2
+N
+N
+N#include <stdint.h>
+L 1 "F:\KEIL5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999,2014 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5060037
+N
+N  #ifdef __INT64_TYPE__
+S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
+S    #define __INT64 __INT64_TYPE__
+N  #else
+N    /* armcc has builtin '__int64' which can be used in --strict mode */
+N    #define __INT64 __int64
+N    #define __INT64_C_SUFFIX__ ll
+N  #endif
+N  #define __PASTE2(x, y) x ## y
+N  #define __PASTE(x, y) __PASTE2(x, y)
+N  #define __INT64_C(x)  __ESCAPE__(__PASTE(x, __INT64_C_SUFFIX__))
+N  #define __UINT64_C(x)  __ESCAPE__(__PASTE(x ## u, __INT64_C_SUFFIX__))
+N  #if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X  #if 0L || (1L && !0L)
+N    /* armclang and non-strict armcc allow 'long long' in system headers */
+N    #define __LONGLONG long long
+N  #else
+S    /* strict armcc has '__int64' */
+S    #define __LONGLONG __int64
+N  #endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __INT64 int64_t;
+Xtypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __INT64 uint64_t;
+Xtypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __INT64 int_least64_t;
+Xtypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __INT64 uint_least64_t;
+Xtypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __INT64 int_fast64_t;
+Xtypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __INT64 uint_fast64_t;
+Xtypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+Stypedef   signed       __INT64 intptr_t;
+Stypedef unsigned       __INT64 uintptr_t;
+N#else
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N#endif
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed     __LONGLONG intmax_t;
+Xtypedef   signed     long long intmax_t;
+Ntypedef unsigned     __LONGLONG uintmax_t;
+Xtypedef unsigned     long long uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __INT64_C(~0x7fffffffffffffff) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MIN INT64_MIN
+N#else
+N#define INTPTR_MIN INT32_MIN
+N#endif
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MAX INT64_MAX
+N#else
+N#define INTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define UINTPTR_MAX UINT64_MAX
+N#else
+N#define UINTPTR_MAX UINT32_MAX
+N#endif
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define PTRDIFF_MIN INT64_MIN
+S#define PTRDIFF_MAX INT64_MAX
+N#else
+N#define PTRDIFF_MIN INT32_MIN
+N#define PTRDIFF_MAX INT32_MAX
+N#endif
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define SIZE_MAX UINT64_MAX
+N#else
+N#define SIZE_MAX UINT32_MAX
+N#endif
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __INT64_C(x)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __UINT64_C(x)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif
+N  #endif /* __cplusplus */
+N
+N#undef __INT64
+N#undef __LONGLONG
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+L 22 "..\App\src\M_CO_LEDs_System.h" 2
+N
+N
+Ntypedef enum
+N{
+N
+N  /*
+N   * Status code:     SES_OKAY.
+N   *
+N   * Explanation:     Function performed successfully.
+N   *
+N   * Solution:        None.
+N   */
+N  SES_OKAY = 0U,
+N
+N
+N  /*
+N   * Status code:     SES_FOUND.
+N   *
+N   * Explanation:     The called function has returned an identifier index number.
+N   *
+N   * Solution:        Process the returned identifier index number. If the
+N   *                  function SEM_GetInput or SEM_GetOutput was called, the
+N   *                  function can be called again to find more events or
+N   *                  action expressions.
+N   */
+N  SES_FOUND = 1U,
+N
+N
+N  /*
+N   * Status code:     SES_ACTIVE.
+N   *
+N   * Explanation:     The completion code has one of the two expositions:
+N   *                  1)  A state/event deduction is started, while an event
+N   *                      inquiry is active. All inquired events have not been
+N   *                      returned by the function SEM_GetInput.
+N   *                  2)  An event inquiry is started, while a state/event
+N   *                      deduction is active. All deduced action expressions 
+N   *                      have not been returned by the function SEM_GetOutput 
+N   *                      and the SEM_NextState has not been called in order to 
+N   *                      complete the state/event deduction.
+N   *
+N   * Solution:        The completion code is a warning and perhaps the
+N   *                  application program should be rewritten. An event inquiry
+N   *                  and a state/event deduction should not be active at the
+N   *                  same time.
+N   */
+N  SES_ACTIVE = 2U,
+N
+N
+N  /*
+N   * Error code:      SES_CONTRADICTION.
+N   *
+N   * Explanation:     A contradiction has been detected between two states in a
+N   *                  state machine.
+N   *
+N   * Solution:        Check the VS System.
+N   */
+N  SES_CONTRADICTION = 3U,
+N
+N
+N  /*
+N   * Error code:      SES_RANGE_ERR.
+N   *
+N   * Explanation:     You are making a reference to an identifier that does not
+N   *                  exist. Note that the first index number is 0. If the 
+N   *                  VS System has 4 identifiers of the same type and you use a
+N   *                  function with the variable parameter = 4, the function 
+N   *                  will return an SES_RANGE_ERR error. In this case the 
+N   *                  highest variable index number is 3.
+N   *
+N   * Solution:        The application program will check the index parameters 
+N   *                  with one of the following symbols defined in the SEMBDef.h 
+N   *                  file:
+N   *
+N   *                    VS_NOF_EVENTS
+N   *                    VS_NOF_STATES
+N   *                    VS_NOF_ACTION_FUNCTIONS
+N   *                    VS_NOF_STATE_MACHINES
+N   */
+N  SES_RANGE_ERR = 4U,
+N
+N
+N  /*
+N   * Error code:      SES_TEXT_TOO_LONG.
+N   *
+N   * Explanation:     The requested text is longer than the specified maximum length.
+N   *
+N   * Solution:        Increase the maximum length.
+N   */
+N  SES_TEXT_TOO_LONG = 5U,
+N
+N
+N  /*
+N   * Error code:      SES_TYPE_ERR.
+N   *
+N   * Explanation:     A text function has been called with the wrong identifier
+N   *                  type or the specified text is not included in the VS System.
+N   *
+N   * Solution:        Use the identifier type symbols (EVENT_TYPE, STATE_TYPE
+N   *                  or ACTION_TYPE) defined in this file and remember
+N   *                  to include wanted text in the VS System.
+N   */
+N  SES_TYPE_ERR = 6U,
+N
+N
+N  /*
+N   * Error code:      SES_EMPTY.
+N   *
+N   * Explanation:     No events have been given to the VSDeduct function before
+N   *                  calling this function.
+N   *
+N   * Solution:        Call the VSDeduct function with an event number.
+N   */
+N  SES_EMPTY = 7U,
+N
+N
+N  /*
+N   * Error code:      SES_BUFFER_OVERFLOW.
+N   *
+N   * Explanation:     A destination buffer cannot hold the number of items found.
+N   *
+N   * Solution:        Call the function with an extended buffer as destination.
+N   */
+N  SES_BUFFER_OVERFLOW = 8U,
+N
+N
+N  /*
+N   * Error code:      SES_SIGNAL_QUEUE_FULL.
+N   *
+N   * Explanation:     Signal queue is full.
+N   *
+N   * Solution:        Increase the maximum signal queue size in the VS System or
+N   *                  via the VS Coder signal queue size option.
+N   */
+N  SES_SIGNAL_QUEUE_FULL = 9U,
+N
+N
+N  /*
+N   * Error code:      SES_NOT_INITIALIZED.
+N   *
+N   * Explanation:     The system has not been initialized.
+N   *
+N   * Solution:        Call the initialization function for the VS System.
+N   */
+N  SES_NOT_INITIALIZED = 10U
+N} VSResult;
+N
+N
+N/* Identifier types, used when getting texts and explanations. */
+Ntypedef enum { EVENT_TYPE = 0U, STATE_TYPE = 1U, ACTION_TYPE = 2U } IdentifierType;
+N
+N
+Nchar const *VSGetSignature (void);
+N
+N
+N#endif /* ifndef visualSTATE_M_CO_LEDS_SYSTEM_H */
+L 19 "..\App\src\debugLEDs.h" 2
+N
+N
+N/*
+N * SEM Variable Types.
+N */
+Ntypedef uint8_t   SEM_EVENT_TYPE;
+Ntypedef uint8_t   SEM_ACTION_EXPRESSION_TYPE;
+Ntypedef uint8_t   SEM_GUARD_EXPRESSION_TYPE;
+Ntypedef uint8_t   SEM_EXPLANATION_TYPE;
+Ntypedef uint8_t   SEM_STATE_TYPE;
+Ntypedef uint8_t   SEM_STATE_MACHINE_TYPE;
+Ntypedef uint8_t   SEM_INSTANCE_TYPE;
+Ntypedef uint8_t   SEM_RULE_INDEX_TYPE;
+Ntypedef uint8_t   SEM_INTERNAL_TYPE;
+Ntypedef uint8_t   SEM_SIGNAL_QUEUE_TYPE;
+Ntypedef uint8_t   SEM_ACTION_FUNCTION_TYPE;
+Ntypedef uint8_t   SEM_EVENT_GROUP_TYPE;
+Ntypedef uint8_t   SEM_EGTI_TYPE;
+Ntypedef uint8_t   SEM_RULE_TABLE_INDEX_TYPE;
+N
+N
+N/*
+N * Number of Identifiers.
+N */
+N#define VS_NOF_ACTION_FUNCTIONS          1U
+N#define VS_NOF_EVENTS                    3U
+N#define VS_NOF_INSTANCES                 1U
+N#define VS_NOF_STATE_MACHINES            1U
+N#define VS_NOF_STATES                    2U
+N
+N
+N/*
+N * Undefined State.
+N */
+N#define STATE_UNDEFINED                  255U
+N
+N
+N/*
+N * Undefined Event.
+N */
+N#define EVENT_UNDEFINED                  255U
+N
+N
+N/*
+N * Undefined Event Group.
+N */
+N#define EVENT_GROUP_UNDEFINED            255U
+N
+N
+N/*
+N * Event Termination ID.
+N */
+N#define EVENT_TERMINATION_ID             255U
+N
+N
+N/*
+N * Event Identifier Definitions.
+N */
+N#define SE_RESET 0U
+N#define eDebugLedsSetupDone 1U
+N#define eLedsProcessDone 2U
+N
+N
+N/*
+N * Name        : debugLEDsVSInitAll
+N *
+N * Description : The function is a wrapper to all initialization functions.
+N *               The function calls the following functions in the listed
+N *               order (provided the specific function exists):
+N *                 SEM_Init
+N *                 SEM_InitExternalVariables
+N *                 SEM_InitInternalVariables
+N *                 SEM_InitSignalQueue
+N *                 SEM_InitInstances
+N *
+N * Argument    : None.
+N *
+N * Return      : None.
+N */
+Nvoid debugLEDsVSInitAll (void);
+N
+N
+N/*
+N * Name        : SEM_Init
+N *
+N * Description : Before calling any other functions this function must be
+N *               called to initialize the VS System. In addition it is
+N *               possible to call the initialization functions for the
+N *               signal queue, internal variables and external variables.
+N *
+N * Argument    : None.
+N *
+N * Return      : None.
+N */
+Nvoid debugLEDsSEM_Init (void);
+N
+N
+N/*
+N * Name        : debugLEDsVSDeduct
+N *
+N * Description : The function prepares the reception of action expressions,
+N *               that can be deduced on the basis of the given event, the
+N *               internal current state vector and the rules in the VS
+N *               System.
+N *               All action expressions are deduced internally in VSDeduct
+N *               by continuously calling the function SEM_GetOutput.
+N *
+N * Argument    : EventNo:
+N *                 Event number to be processed.
+N *
+N *               Variable number of arguments:
+N *                 Used if at least one event has a parameter.
+N *                 The function call must include one argument for each type
+N *                 name declared in the parameter list for each event.
+N *                 
+N *                 This sample declaration is for an event with three
+N *                 parameters:
+N *                 
+N *                   EventName (uint8_t par1, char par2, int par3)
+N *                 
+N *                 How to call the VSDeduct function for the event
+N *                 EventName:
+N *                 
+N *                   VSDeduct (EventName, par1, par2, par3);
+N *
+N * Return      : Completion code:
+N *
+N *                 SES_ACTIVE:
+N *                   The function SEM_Inquiry has been called. All inquired
+N *                   events have not been returned by the function
+N *                   SEM_GetInput or SEM_GetInputAll. The state/event
+N *                   deduction is okay, but the user should not call the
+N *                   function SEM_GetInput before the functions
+N *                   SEM_NextState or SEM_NextStateChg and SEM_Inquiry have
+N *                   been called.
+N *
+N *                 SES_RANGE_ERR:
+N *                   Event is out of range.
+N *
+N *                 SES_OKAY:
+N *                   Success.
+N */
+NVSResult debugLEDsVSDeduct (SEM_EVENT_TYPE EventNo);
+N
+N
+N/*
+N * Name        : debugLEDsVSElementName
+N *
+N * Description : The function gets a pointer to the ASCII name of the
+N *               specified identifier.
+N *               The function must be enabled by its VS Coder option.
+N *
+N * Argument    : IdentType:
+N *                 Must contain the identifier type of the identifier
+N *                 number. It can be EVENT_TYPE, STATE_TYPE or ACTION_TYPE.
+N *
+N *               IdentNo:
+N *                 Must contain the index number of an identifier.
+N *
+N *               Text:
+N *                 Must be a pointer to a text string. If the function
+N *                 terminates successfully, the text string contains the
+N *                 name of the specified identifier.
+N *
+N * Return      : Completion code:
+N *
+N *                 SES_RANGE_ERR:
+N *                   Identifier number is out of range.
+N *
+N *                 SES_TYPE_ERR:
+N *                   The identifier type is not correct. Remember to include
+N *                   the wanted text in the VS System and specify the
+N *                   correct identifier type when calling this function.
+N *
+N *                 SES_OKAY:
+N *                   Success.
+N */
+NVSResult debugLEDsVSElementName (IdentifierType IdentType, SEM_EXPLANATION_TYPE IdentNo, char const * * Text);
+N
+N
+N/*
+N * Name        : debugLEDsVSElementExpl
+N *
+N * Description : The funciton gets the absolute address of an ASCII
+N *               explanation of the specified identifier.
+N *               The function must be enabled by its VS Coder option.
+N *
+N * Argument    : IdentType:
+N *                 Must contain the identifier type of the identifier
+N *                 number. It can be EVENT_TYPE, STATE_TYPE or ACTION_TYPE.
+N *
+N *               IdentNo:
+N *                 Must contain the index number of an identifier.
+N *
+N *               Text:
+N *                 Must be a pointer to a char pointer. If the function
+N *                 terminates successfully, the pointer contains the
+N *                 absolute address of the name of the specified identifier.
+N *
+N * Return      : Completion code:
+N *
+N *                 SES_RANGE_ERR:
+N *                   Identifier number is out of range.
+N *
+N *                 SES_TYPE_ERR:
+N *                   The identifier type is not correct. Remember to include
+N *                   the wanted text in the VS System and specify the
+N *                   correct identifier type when calling this function.
+N *
+N *                 SES_OKAY:
+N *                   Success.
+N */
+NVSResult debugLEDsVSElementExpl (IdentifierType IdentType, SEM_EXPLANATION_TYPE IdentNo, char const * * Text);
+N
+N
+N/*
+N * Name        : SEM_State
+N *
+N * Description : The function will return the current state of the specified
+N *               state machine.
+N *               The function must be enabled by its VS Coder option.
+N *
+N * Argument    : StateMachineNo:
+N *                 State machine number.
+N *
+N *               StateNo:
+N *                 Pointer to store the current state of the specified state
+N *                 machine.
+N *
+N * Return      : Completion code:
+N *
+N *                 SES_RANGE_ERR:
+N *                   State machine index is out of range.
+N *
+N *                 SES_FOUND:
+N *                   Success. State number index found.
+N */
+NVSResult debugLEDsSEM_State (SEM_STATE_MACHINE_TYPE StateMachineNo, SEM_STATE_TYPE *StateNo);
+N
+N
+N/*
+N * Action Function Prototypes.
+N */
+Nvoid aLedsRun (void);
+N
+N
+N#endif /* ifndef visualSTATE_DEBUGLEDS_H */
+L 13 "..\App\src\debugLEDs.c" 2
+N#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
+X#if 1L && (199901L >= 199901L)
+N
+N
+N#include <stdint.h>
+N#endif
+N
+N
+N/*
+N * Used internally in the API
+N */
+Nenum debugLEDsSEMStateEnum
+N{
+N  STATE_SEM_NOT_INITIALIZED = 0U,
+N  STATE_SEM_INITIALIZED     = 1U,
+N  STATE_SEM_PREPARE         = 2U,
+N  STATE_SEM_OKAY            = 3U
+N};
+N
+N
+N/*
+N * SEM Library Datatype Definition.
+N */
+Nstruct debugLEDsSEMDATA
+N{
+N  enum debugLEDsSEMStateEnum                    State;
+N  SEM_EVENT_TYPE                                EventNo;
+N  SEM_STATE_TYPE                                CSV[VS_NOF_STATE_MACHINES];
+X  SEM_STATE_TYPE                                CSV[1U];
+N  SEM_STATE_TYPE                                WSV[VS_NOF_STATE_MACHINES];
+X  SEM_STATE_TYPE                                WSV[1U];
+N};
+N
+N
+N/*
+N * VS System Datatype Definition.
+N */
+Nstruct VSDATAdebugLEDs
+N{
+N  uint8_t        StateMachineIndex[0X002];
+N  uint8_t        RuleData[0X00c];
+N  uint8_t        RuleIndex[0X003];
+N  uint8_t        RuleTableIndex[0X004];
+N};
+N
+N
+N/*
+N * SEM Library data definition.
+N */
+Nstruct debugLEDsSEMDATA SEMdebugLEDs;
+N
+N
+N/*
+N * VS System data definition and initialization. Rule data format number: 0
+N */
+Nstruct VSDATAdebugLEDs const debugLEDs = 
+N{
+N  {
+N    0x00U, 0x00U
+N  },
+N  {
+N    0x01U, 0x00U, 0x00U, 0x01U, 0x01U, 0x00U, 0x01U, 0x11U, 
+N    0x01U, 0x01U, 0x01U, 0x00U
+N  },
+N  {
+N    0x00U, 0x03U, 0x07U
+N  },
+N  {
+N    0x00U, 0x01U, 0x02U, 0x03U
+N  }
+N};
+N
+N
+N/* Core model logic struct name */
+N#define VS debugLEDs
+N
+N
+N/* SEM data struct name */
+N#define SEM SEMdebugLEDs
+N
+N
+N/*
+N * Guard expression type definition
+N */
+Ntypedef _Bool (* debugLEDsVS_GUARDEXPR_TYPE) (void);
+N
+N
+Nstatic void debugLEDsDeductChangeState (void);
+N
+N
+Nstatic VSResult debugLEDsSEM_GetOutput (void);
+N
+N
+N/*
+N * Action expression type definition
+N */
+Ntypedef void (* debugLEDsVS_ACTIONEXPR_TYPE) (void);
+N
+N
+N
+N/*
+N * Action Expression Pointer Table Definition.
+N */
+Nstatic debugLEDsVS_ACTIONEXPR_TYPE const debugLEDsVSAction[1] = 
+N{
+N  &aLedsRun
+N};
+N
+N
+Nvoid debugLEDsVSInitAll (void)
+N{
+N  debugLEDsSEM_Init();
+N}
+N
+N
+Nvoid debugLEDsSEM_Init (void)
+N{
+N  {
+N    SEM_STATE_MACHINE_TYPE i;
+N    for (i = 0U; i < 1U; ++i)
+N    {
+N      SEM.WSV[i] = STATE_UNDEFINED;
+X      SEMdebugLEDs .WSV[i] = 255U;
+N      SEM.CSV[i] = STATE_UNDEFINED;
+X      SEMdebugLEDs .CSV[i] = 255U;
+N    }
+N  }
+N  SEM.State = STATE_SEM_INITIALIZED;
+X  SEMdebugLEDs .State = STATE_SEM_INITIALIZED;
+N}
+N
+N
+Nstatic void debugLEDsDeductChangeState (void)
+N{
+N  SEM_STATE_MACHINE_TYPE i;
+N  for (i = 0U; i < 1U; ++i)
+N  {
+N    if (SEM.WSV[i] != STATE_UNDEFINED)
+X    if (SEMdebugLEDs .WSV[i] != 255U)
+N    {
+N      SEM.CSV[i] = SEM.WSV[i];
+X      SEMdebugLEDs .CSV[i] = SEMdebugLEDs .WSV[i];
+N      SEM.WSV[i] = STATE_UNDEFINED;
+X      SEMdebugLEDs .WSV[i] = 255U;
+N    }
+N  }
+N}
+N
+N
+NVSResult debugLEDsVSDeduct (SEM_EVENT_TYPE EventNo)
+N{
+N  VSResult cc;
+N  if (SEM.State == STATE_SEM_NOT_INITIALIZED)
+X  if (SEMdebugLEDs .State == STATE_SEM_NOT_INITIALIZED)
+N  {
+N    return (SES_NOT_INITIALIZED);
+N  }
+N  if (3U <= EventNo)
+N  {
+N    return (SES_RANGE_ERR);
+N  }
+N  SEM.EventNo = EventNo;
+X  SEMdebugLEDs .EventNo = EventNo;
+N  SEM.State = STATE_SEM_PREPARE;
+X  SEMdebugLEDs .State = STATE_SEM_PREPARE;
+N  cc = debugLEDsSEM_GetOutput();
+N  if (cc == SES_OKAY)
+N  {
+N    debugLEDsDeductChangeState();
+N    SEMdebugLEDs.State = STATE_SEM_INITIALIZED;
+N  }
+N  return cc;
+N}
+N
+N
+Nstatic VSResult debugLEDsSEM_GetOutput (void)
+N{
+N#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
+X#if 1L && (199901L >= 199901L)
+N  uint_fast8_t iFirstR;
+N  uint_fast8_t iLastR;
+N#else
+S  SEM_RULE_TABLE_INDEX_TYPE iFirstR;
+S  SEM_RULE_TABLE_INDEX_TYPE iLastR;
+N#endif
+N  for(;;)
+N  {
+N    switch (SEM.State)
+X    switch (SEMdebugLEDs .State)
+N    {
+N    case STATE_SEM_PREPARE:
+N      iFirstR = VS.RuleTableIndex[SEM.EventNo];
+X      iFirstR = debugLEDs .RuleTableIndex[SEMdebugLEDs .EventNo];
+N      iLastR = VS.RuleTableIndex[SEM.EventNo + 1U];
+X      iLastR = debugLEDs .RuleTableIndex[SEMdebugLEDs .EventNo + 1U];
+N      while (iFirstR < iLastR)
+N      {
+N#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
+X#if 1L && (199901L >= 199901L)
+N        uint_fast8_t i;
+N        uint_fast8_t nNo;
+N        uint_fast8_t nPos;
+N        uint_fast8_t nNxt;
+N        uint_fast8_t iRI;
+N        uint_fast8_t nAction;
+N#else
+S        SEM_INTERNAL_TYPE i;
+S        uint8_t nNo;
+S        uint8_t nPos;
+S        uint8_t nNxt;
+S        SEM_RULE_INDEX_TYPE iRI;
+S        uint8_t nAction;
+N#endif
+N
+N        iRI = VS.RuleIndex[iFirstR];
+X        iRI = debugLEDs .RuleIndex[iFirstR];
+N        ++iFirstR;
+N        i = VS.RuleData[iRI];
+X        i = debugLEDs .RuleData[iRI];
+N        ++iRI;
+N        nNxt = (unsigned char)(i & 0x0FU);
+N        nAction = (unsigned char)(i >> 4U);
+N        i = VS.RuleData[iRI];
+X        i = debugLEDs .RuleData[iRI];
+N        ++iRI;
+N        nPos = (unsigned char)(i & 0x0FU);
+N
+N        for (nNo = 0U; nNo < nPos; ++nNo)
+N        {
+N          SEM_STATE_TYPE sa;
+N          sa = (SEM_STATE_TYPE)(VS.RuleData[iRI]);
+X          sa = (SEM_STATE_TYPE)(debugLEDs .RuleData[iRI]);
+N          if (sa != SEM.CSV[VS.StateMachineIndex[sa]])
+X          if (sa != SEMdebugLEDs .CSV[debugLEDs .StateMachineIndex[sa]])
+N          {
+N            goto NextRule;
+N          }
+N          else
+N          {
+N            ++iRI;
+N          }
+N        }
+N
+N
+N        for (nNo = 0U; nNo < nNxt; ++nNo)
+N        {
+N          SEM_STATE_TYPE sa;
+N          sa = (SEM_STATE_TYPE)(VS.RuleData[iRI]);
+X          sa = (SEM_STATE_TYPE)(debugLEDs .RuleData[iRI]);
+N          ++iRI;
+N          i = VS.StateMachineIndex[sa];
+X          i = debugLEDs .StateMachineIndex[sa];
+N          if (SEM.WSV[i] == STATE_UNDEFINED)
+X          if (SEMdebugLEDs .WSV[i] == 255U)
+N          {
+N            SEM.WSV[i] = sa;
+X            SEMdebugLEDs .WSV[i] = sa;
+N          }
+N          else if (SEM.WSV[i] != sa)
+X          else if (SEMdebugLEDs .WSV[i] != sa)
+N          {
+N            return (SES_CONTRADICTION);
+N          }
+N        }
+N        while (nAction != 0U)
+N        {
+N          SEM_ACTION_EXPRESSION_TYPE actionNo;
+N          actionNo = (SEM_ACTION_EXPRESSION_TYPE)(VS.RuleData[iRI]);
+X          actionNo = (SEM_ACTION_EXPRESSION_TYPE)(debugLEDs .RuleData[iRI]);
+N          ++iRI;
+N          nAction--;
+N          (*debugLEDsVSAction[actionNo])();
+N        }
+NNextRule:
+N        ;
+N      }
+N      SEMdebugLEDs.State = STATE_SEM_OKAY;
+N      return (SES_OKAY);
+N
+N    case STATE_SEM_OKAY:
+N      return (SES_OKAY);
+N
+N    default:
+N      return (SES_EMPTY);
+N    }
+N  }
+N}
+N
+N
+NVSResult debugLEDsVSElementName (IdentifierType IdentType, SEM_EXPLANATION_TYPE IdentNo, char const * * Text)
+N{
+N  VSResult ret = SES_OKAY;
+N  switch (IdentType)
+N  {
+N  default:
+N    ret = SES_TYPE_ERR;
+N    break;
+N  }
+N  return ret;
+N}
+N
+N
+NVSResult debugLEDsVSElementExpl (IdentifierType IdentType, SEM_EXPLANATION_TYPE IdentNo, char const * * Text)
+N{
+N  VSResult ret = SES_OKAY;
+N  switch (IdentType)
+N  {
+N  default:
+N    ret = SES_TYPE_ERR;
+N    break;
+N  }
+N  return ret;
+N}
+N
+N
+NVSResult debugLEDsSEM_State (SEM_STATE_MACHINE_TYPE StateMachineNo,
+N  SEM_STATE_TYPE *StateNo)
+N{
+N  if (1U <= StateMachineNo)
+N  {
+N    return (SES_RANGE_ERR);
+N  }
+N  *StateNo = SEM.CSV[StateMachineNo];
+X  *StateNo = SEMdebugLEDs .CSV[StateMachineNo];
+N  return (SES_FOUND);
+N}

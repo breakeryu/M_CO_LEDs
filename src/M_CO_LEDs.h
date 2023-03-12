@@ -2,7 +2,7 @@
  * @Author: magyu
  * @Date: 2023-03-08 16:23:10
  * @LastEditors: magyu
- * @LastEditTime: 2023-03-10 20:30:36
+ * @LastEditTime: 2023-03-12 12:48:09
  * @Description: 请填写简介
  */
 
@@ -127,6 +127,6 @@ void M_CO_LEDs_process(M_CO_LEDs_t *LEDs,
                      bool_t SYSotherState
                      );
 
-                     
+extern M_CO_LEDs_t mLEDs;         
 
 #endif // M_CO_LEDS_H
